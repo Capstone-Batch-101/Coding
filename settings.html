@@ -1,0 +1,288 @@
+<html>
+<head>
+    <title>Eventopia - Settings</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e0f7ff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .settings-container {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: left;
+            width: 400px;
+            overflow-y: auto;
+            max-height: 90vh;
+        }
+        .settings-container h1 {
+            font-size: 2em;
+            color: #1a73e8;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .settings-section {
+            margin-bottom: 20px;
+        }
+        .settings-section h2 {
+            font-size: 1.5em;
+            color: #333333;
+            margin-bottom: 10px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+        }
+        .settings-section h2 i {
+            margin-right: 10px;
+        }
+        .settings-section-content {
+            display: none;
+            margin-top: 10px;
+        }
+        .settings-section-content label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333333;
+        }
+        .settings-section-content input[type="text"],
+        .settings-section-content input[type="email"],
+        .settings-section-content input[type="password"],
+        .settings-section-content select,
+        .settings-section-content input[type="file"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #cccccc;
+            border-radius: 5px;
+        }
+        .settings-section-content button {
+            background-color: #1a73e8;
+            color: #ffffff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            margin-top: 10px;
+        }
+        .settings-section-content button:hover {
+            background-color: #155ab6;
+        }
+        .logout-button {
+            background-color: #ff4d4d;
+            color: #ffffff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            margin-top: 20px;
+            display: block;
+            width: 100%;
+            text-align: center;
+        }
+        .logout-button:hover {
+            background-color: #cc0000;
+        }
+        /* Light Theme */
+        body.light {
+            background-color: #e0f7ff;
+            color: #333;
+        }
+
+        .settings-container.light {
+            background-color: #ffffff;
+        }
+
+        /* Dark Theme */
+        body.dark {
+            background-color: #3b3b3b;
+            color: #ffffff;
+        }
+
+        .settings-container.dark {
+            background-color: #1e1e1e;
+        }
+    </style>
+</head>
+<body>
+    <div class="settings-container">
+        <h1>Settings</h1>
+        
+        <div class="settings-section">
+            <h2 onclick="toggleSection('profile-management')"><i class="fas fa-user"></i>Profile Management</h2>
+            <div id="profile-management" class="settings-section-content">
+                <form>
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name" placeholder="Your name" required>
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" placeholder="student@edu.in" required>
+                    <label for="phone">Phone Number</label>
+                    <input type="text" id="phone" name="phone" placeholder="Your phone number" required>
+                    <label for="profile-picture">Profile Picture</label>
+                    <input type="file" id="profile-picture" name="profile-picture">
+                    <button type="submit">Save Changes</button>
+                </form>
+                <form>
+                    <label for="current-password">Current -password</label>
+                    <input type="password" id="current-password" name="current-password" placeholder="Current password" required>
+                    <label for="new-password">New Password</label>
+                    <input type="password" id="new-password" name="new-password" placeholder="New password" required>
+                    <label for="confirm-password">Confirm Password</label>
+                    <input type="password" id="confirm-password" name="confirm-password" placeholder="Confirm password" required>
+                    <button type="submit">Save</button>
+                </form>
+            </div>
+        </div>
+        
+        <div class="settings-section">
+            <h2 onclick="toggleSection('preferences')"><i class="fas fa-cog"></i>Preferences</h2>
+            <div id="preferences" class="settings-section-content">
+                <form>
+                    <label for="theme">Theme</label>
+                    <select id="theme" name="theme">
+                        <option value="light">Light Mode</option>
+                        <option value="dark">Dark Mode</option>
+                        <option value="auto">Auto</option>
+                    </select>
+                    <label for="notifications">Notification Settings</label>
+                    <input type="checkbox" id="event-reminders" name="notifications"> Event Reminders<br>
+                    <input type="checkbox" id="updates" name="notifications"> Updates & Announcements<br>
+                    <input type="checkbox" id="social-interactions" name="notifications"> Social Interactions<br>
+                    <button type="submit">Save Preferences</button>
+                </form>
+            </div>
+        </div>
+        
+        <div class="settings-section">
+            <h2 onclick="toggleSection('account-settings')"><i class="fas fa-user-cog"></i>Account Settings</h2>
+            <div id="account-settings" class="settings-section-content">
+                <form>
+                    <label for="linked-accounts">Manage Linked Accounts</label>
+                    <input type="text" id="linked-accounts" name="linked-accounts" placeholder="Linked accounts" required>
+                    <button type="button">Unlink</button>
+                    <button type="button">Add Account</button>
+                    <label for="privacy-settings">Privacy Settings</label>
+                    <input type="checkbox" id="profile-visibility" name="privacy-settings"> Profile visibility (Public/Private)<br>
+                    <input type="checkbox" id="message-permissions" name="privacy-settings"> Who can message/comment<br>
+                    <input type="checkbox" id="data-sharing" name="privacy-settings"> Data sharing permissions<br>
+                    <button type="submit">Save Account Settings</button>
+                </form>
+            </div>
+        </div>
+        
+        <div class="settings-section">
+            <h2 onclick="toggleSection('app-options')"><i class="fas fa-sliders-h"></i>App-specific Options</h2>
+            <div id="app-options" class="settings-section-content">
+                <form>
+                    <label for="default-view">Default View/Sections</label>
+                    <select id="default-view" name="default-view">
+                        <option value="calendar">Calendar</option>
+                        <option value="event-feed">Event Feed</option>
+                        <option value="profile">Profile</option>
+                    </select>
+                    <label for="event-preferences">Event Preferences</label>
+                    <input type="checkbox" id="sports" name="event-preferences"> Sports<br>
+                    <input type="checkbox" id="music" name="event-preferences"> Music<br>
+                    <input type="checkbox" id="academic" name="event-preferences"> Academic<br>
+                    <button type="submit">Save App Options</button>
+                </form>
+            </div>
+        </div>
+        
+        <div class="settings-section">
+            <h2 onclick="toggleSection('system-settings')"><i class="fas fa-tools"></i>System Settings</h2>
+            <div id="system-settings" class="settings-section-content">
+                <form>
+                    <label for="cache-management">Cache/Cookies Management</label>
+                    <button type="button" onclick="clearCache()">Clear Cache</button>
+                    <label for="data-sync">Data Sync/Backup</label>
+                    <button type="button" onclick="syncData()">Manual Sync</button>
+                    <input type="checkbox" id="auto-sync" name="data-sync"> Auto Sync<br>
+                    <p>Last Sync: <span id="last-sync">Never</span></p>
+                    <button type="submit">Save System Settings</button>
+                </form>
+            </div>
+        </div>
+        
+        <div class="settings-section">
+            <h2 onclick="toggleSection(' legal')"><i class="fas fa-gavel"></i>Legal</h2>
+            <div id="legal" class="settings-section-content">
+                <form>
+                    <label for="terms">Terms and Conditions</label>
+                    <textarea id="terms" name="terms" placeholder="Terms and conditions" required></textarea>
+                    <label for="privacy-policy">Privacy Policy</label>
+                    <textarea id="privacy-policy" name="privacy-policy" placeholder="Privacy policy" required></textarea>
+                    <button type="submit">Save Legal Settings</button>
+                </form>
+            </div>
+        </div>
+        
+        <button class="logout-button" onclick="logout()">Logout</button>
+        <script>
+            function logout() {
+                
+                window.location.href = 'frontpage.html';
+            }
+           
+        </script>
+    </div>
+    <script>
+        function toggleSection(sectionId) {
+            var section = document.getElementById(sectionId);
+            if (section.style.display === "none" || section.style.display === "") {
+                section.style.display = "block";
+            } else {
+                section.style.display = "none";
+            }
+        }
+        function logout() {
+            // Add logout functionality here
+            alert('Logged out');
+        }
+        function clearCache() {
+            // Add clear cache functionality here
+            alert('Cache cleared');
+        }
+        function syncData() {
+            // Add data sync functionality here
+            document.getElementById('last-sync').innerText = new Date().toLocaleString();
+            alert('Data synced');
+        }
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            // Load the saved theme from localStorage
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            setTheme(savedTheme);
+
+            // Add event listener to the theme select dropdown
+            document.getElementById('theme').addEventListener('change', (e) => {
+                setTheme(e.target.value);
+            });
+        });
+
+        function setTheme(theme) {
+            // Remove existing theme classes
+            document.body.classList.remove('light', 'dark');
+            const settingsContainer = document.querySelector('.settings-container');
+            settingsContainer.classList.remove('light', 'dark');
+
+            // Add the selected theme class
+            document.body.classList.add(theme);
+            settingsContainer.classList.add(theme);
+
+            // Save the theme in localStorage
+            localStorage.setItem('theme', theme);
+        }
+    </script>
+    <script src="/Eventopia-project/theme.js"></script>
+
+</body>
+</html>
