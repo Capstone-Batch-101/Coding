@@ -1,0 +1,148 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eventopia - Campus Event Management Portal</title>
+    <!-- Link to Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        /* Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Basic styling */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0ff;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            flex-direction: column;
+            padding-top: 80px; /* Space for the fixed header */
+        }
+
+        /* Header styling */
+        .header {
+            width: 100%;
+            background-color: #003366;
+            color: white;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 60px;
+            z-index: 1000;
+        }
+
+        /* Logo styling */
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 40px;
+            margin-right: 15px;
+        }
+
+        .logo span {
+            font-size: 1.2em;
+            font-weight: bold;
+            white-space: nowrap;
+        }
+	
+        /* Container styling */
+        .container {
+            text-align: center;
+            background-color: #f0f0ff;
+            padding: 30px;
+            border-radius: 10px;
+            width: 100%;
+            max-width: 600px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Optional shadow for emphasis */
+        }
+
+        h2 {
+            font-size: 1.5em;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .login-options {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+        }
+
+        .login-option {
+            text-decoration: none;
+            color: #333;
+            text-align: center;
+            transition: transform 0.2s;
+        }
+
+        .login-option:hover {
+            transform: scale(1.1);
+        }
+
+        .login-option img {
+            width: 70px; /* Icon size */
+            height: 70px;
+            margin-bottom: 10px;
+        }
+
+        .login-option p {
+            font-size: 1.1em;
+            font-weight: bold;
+        }
+
+        /* Footer styling */
+        .footer {
+            text-align: center;
+            padding: 15px;
+            color: #555;
+            margin-top: 100px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <div class="header">
+        <!-- Logo and Title -->
+        <div class="logo">
+            <img src="/images/SRU_Logo.png" alt="SRU Logo">
+            <span>EVENTOPIA</span>
+        </div>
+    </div>
+
+    <!-- Centered Container -->
+    <div class="container">
+        <h2>Choose your Login</h2>
+        <div class="login-options">
+            <a href="admin_index.html" class="login-option">
+                <img src="/images/WhatsApp Image 2024-11-18 at 19.35.12_da611249.jpg" alt="Admin Icon">
+                <p>Admin</p>
+            </a>
+            <a href="student_index.html" class="login-option">
+                <img src="/images/WhatsApp Image 2024-11-18 at 19.35.12_8652b302.jpg" alt="Student Icon">
+                <p>Student</p>
+            </a>
+        </div>
+    </div>
+
+    <!-- Footer Section -->
+    <div class="footer">
+        © 2024 SRU Campus, Ananthasagar, Hanamkonda, Warangal, Telangana, India
+    </div>
+</body>
+</html>

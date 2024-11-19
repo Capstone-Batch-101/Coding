@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Event</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Create Event</h1>
+        <form id="eventForm">
+            <input type="text" id="event-name" placeholder="Event Name" required>
+            <input type="date" id="event-date" required>
+            <input type="time" id="event-time" required>
+            <input type="text" id="event-location" placeholder="Location" required>
+            <textarea id="event-description" placeholder="Description" required></textarea>
+            <button type="submit">Create Event</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('eventForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const name = document.getElementById('event-name').value;
+            const date = document.getElementById('event-date').value;
+            const time = document.getElementById('event-time').value;
+            const location = document.getElementById('event-location').value;
+            const description = document.getElementById('event-description').value;
+
+            const eventData = {
+                name,
+                date,
+                time,
+                location,
+                description
+            };
+
+            try {
+                const response = await fetch('http://localhost:5000/api/events', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(eventData)
+                });
+
+                if (response.ok) {
+                    alert('Event created successfully!');
+                    window.location.href = 'homepage.html'; // Redirect to the dashboard or homepage
+                } else {
+                    alert('Failed to create event. Please try again.');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('An error occurred while creating the event.');
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campus Event Management Portal</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e9edf5;
+            margin: 0;
+            padding: 0;
+        }
+
+        .header {
+            background-color: #003366;
+            color: white;
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .header img {
+            height: 40px;
+            margin-right: 20px;
+        }
+
+        .header-text h1 {
+            font-size: 24px; /* Adjust the font size to match the logo */
+            color: white;
+            margin: 0;
+            margin-right: 750px;
+            line-height: 50px; /* Center the text vertically with the logo */
+        }
+
+        .relative {
+            position: relative;
+        }
+
+        .relative input[type="text"] {
+            padding: 8px;
+            border: none;
+            outline: none;
+            width: 200px;
+            font-size: 0.9em;
+            color: #333; /* Set text color to dark for visibility */
+            background-color: #fff; /* Ensure background is white */
+        }
+
+        .header .notification-icon {
+            margin-left: 15px;
+        }
+
+        .header .menu-icon {
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .menu {
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 10px;
+            position: absolute;
+            top: 60px;
+            right: 20px;
+            width: 200px;
+            display: none;
+        }
+
+        .menu a {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            color: #0b3d91;
+            text-decoration: none;
+            border-bottom: 1px solid #e9edf5;
+        }
+
+        .menu a:hover {
+            background-color: #e9edf5;
+        }
+
+        .content {
+            padding: 20px;
+        }
+
+        .section {
+            margin-bottom: 40px;
+        }
+
+        .events-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: space-between;
+        }
+
+        .event-card {
+            width: calc(33.33% - 20px);
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: transform 0.2s ease-in-out;
+        }
+
+        .event-card:hover {
+            transform: scale(1.05);
+        }
+
+        .event-header {
+            color: #23468a;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            background-color: #f0f0f0;
+        }
+
+        .club-logo {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+        }
+
+        .follow-btn {
+            background-color: #009688;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 20px;
+            cursor: pointer;
+        }
+
+        .follow-btn:hover {
+            background-color: #00796b;
+        }
+
+        .event-poster {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+
+        .event-details {
+            padding: 15px;
+        }
+
+        .event-footer {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border-top: 1px solid #ddd;
+        }
+
+        .icon-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .icon-container span {
+            cursor: pointer;
+            margin-right: 10px;
+        }
+
+        .like-btn {
+            font-size: 20px;
+            color: #e74c3c;
+        }
+
+        .comment-btn, .share-btn {
+            font-size: 20px;
+            color: #3498db;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 20px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .notification-icon {
+            position: relative;
+            display: inline-block;
+        }
+
+        .notification-icon .red-dot {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 10px;
+            height: 10px;
+            background-color: red;
+            border-radius: 50%;
+            display: none; /* Initially hidden */
+        }
+
+        @media (max-width: 768px) {
+            .event-card {
+                width: calc(50% - 20px);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .event-card {
+                width: 100%;
+            }
+        }
+
+        /* Light Theme */
+        body.light {
+            background-color: #e0f7ff;
+            color: #333;
+        }
+
+        /* Dark Theme */
+        body.dark {
+            background-color: #3b3b3b;
+            color: #ffffff;
+        }
+
+        body.dark .event-card {
+            background-color: #4a4a4a; /* Darker background for event cards */
+            border: 1px solid #666; /* Optional: border for visibility */
+        }
+
+        body.dark .event-header {
+            background-color: #5a5a5a; /* Darker header for event cards */
+        }
+
+        body.dark .follow-btn {
+            background-color: #00796b; /* Adjust button color for dark theme */
+        }
+
+        body.dark .like-btn {
+            background-color: red; /* Change to a color that contrasts well with dark background */
+        }
+
+        body.dark .icon-container span {
+            color: #ffffff; /* Change icon color for better visibility */
+        }
+        .followed-btn {
+    background-color: #c0c0c0;
+    color: #333;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 20px;
+    cursor: pointer;
+}
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <div class="header">
+        <div class="logo">
+            <img src="/images/WhatsApp Image 2024-11-18 at 18.22.52_10a011a5.jpg" alt="Eventopia Logo" />
+        </div>
+        <div class="header-text">
+            <h1>EVENTOPIA</h1>
+        </div>
+        <div class="relative mb-4">
+            <input type="text" placeholder="Search events, clubs..." id="searchInput" class="w-64 px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500" style="margin-top:15px ;">
+            <i class="bi bi-search absolute right-3 top-3 text-gray-400" style="margin-top: 10px;"></i>
+        </div>
+        <button id="clearSearch" class="ml-2 px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition">
+            Clear
+        </button>
+        <div class="notification-icon" onclick="viewNotifications()">
+            <i class="fas fa-bell" style="margin-right: 20px;"></i>
+            <div class="red-dot" id="notification-dot"></div>
+        </div>
+        <div class="menu-icon" onclick="toggleMenu()">
+            <i class="fas fa-bars"></i>
+        </div>
+        
+    </div>
+
+    <!-- Menu -->
+    <div class="menu" id="menu">
+        <a href="#" onclick="navigateTo('home')"><i class="fas fa-home"></i> Home</a>
+        <a href="#" onclick="navigateTo('dashboard')"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+        <a href="/gamification.html" onclick="navigateTo('gamification')"><i class="fas fa-gamepad"></i> Gamification</a>
+        <a href="/calender.html" onclick="navigateTo('calendar')"><i class="fas fa-calendar-alt"></i> Calendar</a>
+        <a href="/settings.html" onclick="navigateTo('settings')"><i class="fas fa-cog"></i> Settings</a>
+        <a href="#" onclick="navigateTo('support')"><i class="fas fa-question-circle"></i> Support / Help</a>
+        <a href="/adminsignup.html" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+    </div>
+
+    <!-- Event Categories Section -->
+    <div class="event-categories my-8">
+        <h2 class="text-2xl font-semibold mb-4">Event Categories</h2>
+        <div class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 gap-4">
+            <div class="flex flex-col items-center p-4 bg-white rounded-lg shadow-sm cursor-pointer hover:bg-gray-50">
+                <i class="bi bi-music-note-beamed text-3xl text-blue-600"></i>
+                <span class="mt-2 text-sm font-medium" style="color: #3b3b3b;"><a href="/cultural.html">Cultural</a></span>
+            </div>
+            <div class="flex flex-col items-center p-4 bg-white rounded-lg shadow-sm cursor-pointer hover:bg-gray-50">
+                <i class="bi bi-laptop text-3xl text-green-600"></i>
+                <span class="mt-2 text-sm font-medium" style="color: #3b3b3b;"><a href="/technical.html">Technical</a></span>
+            </div>
+            <div class="flex flex-col items-center p-4 bg-white rounded-lg shadow-sm cursor-pointer hover:bg-gray-50">
+                <i class="bi bi-trophy text-3xl text-yellow-600"></i>
+                <span class="mt-2 text-sm font-medium" style="color: #3b3b3b;"><a href="/sports.html">Sports</a></span>
+            </div>
+            <div class="flex flex-col items-center p-4 bg-white rounded-lg shadow-sm cursor-pointer hover:bg-gray-50">
+                <i class="bi bi-book text-3xl text-red-600"></i>
+                <span class="mt-2 text-sm font-medium" style="color: #3b3b3b;"><a href="/academic.html">Academic</a></span>
+            </div>
+            <div class="flex flex-col items-center p-4 bg-white rounded-lg shadow-sm cursor-pointer hover:bg-gray-50">
+                <i class="bi bi-people text-3xl text-purple-600"></i>
+                <span class="mt-2 text-sm font-medium" style="color: #3b3b3b;"><a href="">Social</a></span>
+            </div>
+            <div class="flex flex-col items-center p-4 bg-white rounded-lg shadow-sm cursor-pointer hover:bg-gray-50">
+                <i class="bi bi-three-dots text-3xl text-gray-600"></i>
+                <span class="mt-2 text-sm font-medium" style="color: #3b3b3b;">More</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content: Upcoming Events -->
+    <div class="content" id="content">
+        <div class="section">
+            <h2>Upcoming Events</h2>
+            <div class="events-container">
+                <!-- Event Card 1 -->
+                <div class="event-card">
+                    <div class="event-header">
+                        <img src="/images/SRU_Logo.png" alt="Club Logo" class="club-logo" />
+                        <button class="follow-btn" onclick="toggleFollow()">Follow</button>
+                    </div>
+                    <img src="/images/SRU.png" alt="Event Poster" class="event-poster" />
+                    <div class="event-details">
+                        <h3 class="event-title"><b><i>Innovation Design Event</i></b></Innovation></h3>
+                        <span class="event-category"><strong>Category:</strong>Techincal</span>
+                        <p><strong>Date:</strong> April 10, 2024</p>
+                        <p><strong>Time:</strong> 10:00 AM - 12:00 PM</p>
+                        <p><strong>Location:</strong> Auditorium</p>
+                        <p>
+                            <strong>Description:</strong>
+                            Join us for an exciting innovation, design event...
+                            <span class="full-description" style="display: none;">
+                                This event will showcase the latest trends in technology, design, and creativity. Meet industry experts and network with peers.
+                            </span>
+                            <a href="event-details.html" class="read-more-button">Read More</a>
+                        </p>
+                    </div>
+                    <div class="event-footer">
+                        <div class="icon-container">
+                            <span class="like-btn" onclick="toggleLike()">❤</span><span class="like-count" id="like-count-1">0</span>
+                            <span class="comment-btn" onclick="toggleCommentBox()">💬</span><span class="comment-count" id="comment-count-1">0</span>
+                            <span class="share-btn" onclick="shareEvent()">🔗</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Event Card 2 -->
+                <div class="event-card">
+                    <div class="event-header">
+                        <img src="/images/com_club[1].png" alt="Club Logo" class="club-logo" />
+                        <button class="follow-btn" onclick="toggleFollow()">Follow</button>
+                    </div>
+                    <img src="/images/comm_club_post.jpeg" alt="Event Poster" class="event-poster" />
+                    <div class="event-details">
+                        <h3 class="event-title"><b><i>Discursus Dominus 2024</i></b></h3>
+                        <span class="event-category"><strong>Category:</strong>Academic</span>
+                        <p><strong>Date:</strong> May 15, 2024</p>
+                        <p><strong>Time:</strong> 2:00 PM - 4:00 PM</p>
+                        <p><strong>Location:</strong> Hall 2</p>
+                        <p><strong>Description:</strong> Don’t miss out on communication club an amazing event...
+                            <a href="event-details.html" class="read-more-button">Read More</a>
+                        </p>
+                    </div>
+                    <div class="event-footer">
+                        <div class="icon-container">
+                            <span class="like-btn" onclick="toggleLike()">❤</span><span class="like-count" id="like-count-2">0</span>
+                            <span class="comment-btn" onclick="toggleCommentBox()">💬</span><span class="comment-count" id="comment-count-2">0</span>
+                            <span class="share-btn" onclick="shareEvent()">🔗</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Event Card 3 -->
+                <div class="event-card">
+                    <div class="event-header">
+                        <img src="/images/eee.png" alt="Club Logo" class="club-logo" />
+                        <button class="follow-btn" onclick="toggleFollow()">Follow</button>
+                    </div>
+                    <img src="/images/volleyball.png" alt="Event Poster" class="event-poster"/>
+                    <div class="event-details">
+                        <h3 class="event-title"><b><i>Volleyball Event</i></b></h3>
+                        <span class="event-category"><strong>Category:</strong>Sports</span>
+                        <p><strong>Date:</strong> June 20, 2024</p>
+                        <p><strong>Time:</strong> 1:00 PM - 3:00 PM</p>
+                        <p><strong>Location:</strong> Outdoor Stadium</p>
+                        <p><strong>Description:</strong> Join us for a thrilling volleyball match that promises energy...
+                            <a href="event-details.html" class="read-more-button">Read More</a>
+                        </p>
+                    </div>
+                    <div class="event-footer">
+                        <div class="icon-container">
+                            <span class="like-btn" onclick="toggleLike()">❤</span><span class="like-count" id="like-count-3">0</span>
+                            <span class="comment-btn" onclick="toggleCommentBox()">💬</span><span class="comment-count" id="comment-count-3">
+                        </span>
+                            <span class="share-btn" onclick="shareEvent()">🔗</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+        <!-- Section: Followed Accounts -->
+        <div class="section">
+            <h2>Accounts You Follow</h2>
+            <div class="accounts-you-follow" id="followed-accounts-container">
+                <!-- Followed Account Card -->
+                <div class="event-card">
+                    <div class="event-header">
+                        <img src="/images/SRU_Logo.png" alt="Club Logo" class="club-logo" />
+                        <button class="follow-btn" disabled>Followed</button>
+                    </div>
+                    <img src="/images/WhatsApp Image 2024-11-18 at 18.34.12_0f74cd66.jpg" alt="Account Poster" class="event-poster" />
+                    <div class="event-details">
+                        <h3><strong>Account Name:</strong> SRU Hiking Club</h3>
+                        <p><strong>Description:</strong> Join us for hiking adventures!</p>
+                    </div>
+                </div>
+                <!-- Add more followed account cards as needed -->
+            </div>
+        </div>
+
+        <!-- Section: Recommended Accounts -->
+        <div class="section recommended-container">
+            <h2>Recommended Accounts</h2>
+            <div class="events-container">
+                <!-- Recommended Account Card -->
+                <div class="event-card">
+                    <div class="event-header">
+                        <img src="/images/SRU_Logo.png" alt="Club Logo" class="club-logo" />
+                        <button class="follow-btn" onclick="toggleFollow()">Follow</button>
+                    </div>
+                    <img src="/images/WhatsApp Image 2024-11-18 at 18.35.34_0af193ed.jpg" alt="Account Poster" class="event-poster" />
+                    <div class="event-details">
+                        <p><strong>Account Name:</strong> SRU Coding Club</p>
+                        <p><strong>Description:</strong> Learn coding and programming!</p>
+                    </div>
+                </div>
+                <!-- Add more recommended account cards as needed -->
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>&copy; 2024 SRU Campus Events. All Rights Reserved.</p>
+    </div>
+
+    <script>
+        const searchInput = document.getElementById('searchInput');
+        const eventCards = document.querySelectorAll('.event-card');
+        const clearSearchBtn = document.getElementById('clearSearch');
+
+        // Search Functionality
+        searchInput.addEventListener('keyup', (e) => {
+            const query = e.target.value.toLowerCase();
+            console.log('Search query:', query);
+
+            eventCards.forEach(card => {
+                const title = card.querySelector('.event-title') ? card.querySelector('.event-title').textContent.toLowerCase() : '';
+                const category = card.querySelector('.event-category') ? card.querySelector('.event-category').textContent.toLowerCase() : '';
+                console.log('Card title:', title, 'Card category:', category);
+
+                // Check if the title or category includes the search query
+                if (title.includes(query) || category.includes(query)) {
+                    card.style.display = ''; // Show the card
+                } else {
+                    card.style.display = 'none'; // Hide the card
+                }
+            });
+        });
+
+        // Clear Search Functionality
+        if (clearSearchBtn) {
+            clearSearchBtn.addEventListener('click', () => {
+                searchInput.value = ''; // Clear the input
+                eventCards.forEach(card => {
+                    card.style.display = ''; // Show all cards
+                });
+            });
+        }
+
+        function toggleMenu() {
+            const menu = document.getElementById('menu');
+            menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+        }
+
+        function navigateTo(page) {
+            console.log(`Navigating to ${page}...`);
+        }
+
+        function logout() {
+            console.log('Logging out...');
+        }
+
+        function toggleFollow() {
+            console.log('Toggling Follow button...');
+        }
+
+        function toggleLike() {
+            const likeCount = event.target.nextElementSibling;
+            let currentLikes = parseInt(likeCount.textContent);
+            likeCount.textContent = currentLikes + 1; // Increment like count
+        }
+
+        function toggleCommentBox() {
+            console.log('Toggling Comment Box...');
+            // Logic to show/hide comment box can be added here
+        }
+
+        function shareEvent() {
+            console.log('Sharing Event...');
+            // Logic to share event can be added here
+        }
+
+        function viewNotifications() {
+            console.log('Viewing Notifications...');
+            document.getElementById('notification-dot').style.display = 'none'; // Hide red dot when viewed
+        }
+
+        async function fetchEvents() {
+    try {
+        const response = await fetch('http://localhost:5000/api/events');
+        const events = await response.json();
+        const eventsContainer = document.getElementById('events-container'); // Make sure to have a container for events
+
+        events.forEach(event => {
+            const eventCard = document.createElement('div');
+            eventCard.className = 'event-card';
+            eventCard.innerHTML = `
+                <h3>${event.name}</h3>
+                <p>Date: ${new Date(event.date).toLocaleDateString()}</p>
+                <p>Time: ${event.time}</p>
+                <p>Location: ${event.location}</p>
+                <p>Description: ${event.description}</p>
+            `;
+            eventsContainer.appendChild(eventCard);
+        });
+    } catch (error) {
+        console.error('Error fetching events:', error);
+    }
+}
+
+// Call fetchEvents when the page loads
+document.addEventListener('DOMContentLoaded', fetchEvents);
+
+
+
+        function toggleFollow() {
+    const followBtn = event.target;
+    const eventCard = followBtn.closest('.event-card'); // Assuming the event card has a class of 'event-card'
+    
+    // Check if the button is already followed
+    if (followBtn.textContent === 'Followed') {
+        alert('You are already following this event.');
+        return; // Exit the function if already followed
+    }
+
+    // Change the button text and class to indicate it's followed
+    followBtn.textContent = 'Followed';
+    followBtn.classList.remove('follow-btn');
+    followBtn.classList.add('followed-btn');
+
+    // Clone the event card and append it to the "Accounts You Follow" section
+    const accountsYouFollowSection = document.querySelector('.accounts-you-follow'); // Adjust the selector as needed
+    const clonedEventCard = eventCard.cloneNode(true); // Clone the event card
+    accountsYouFollowSection.appendChild(clonedEventCard); // Append the cloned card
+
+    // Optionally, you can add more logic here, like updating a database or notifying the user
+    console.log('You are now following this event.');
+}
+    </script>
+    <script src="theme.js"></script>
+</body>
+</html>

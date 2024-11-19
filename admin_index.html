@@ -1,0 +1,58 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <title>Eventopia</title>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+</head>
+
+<body>
+
+    <div class="container" id="container">
+        <div class="form-container sign-up">
+            <form onsubmit="handleSignUp(event)" autocomplete="on">
+                <h1>Create Account</h1>
+                
+                <input type="text" id="signup-name" placeholder="Name" required>
+                <input type="email" id="signup-email" placeholder="Email" pattern="^[a-zA-Z0-9._%+-]+@sru\.edu\.in$" title="Please enter a valid college email address" required autocomplete="email">
+                <input type="password" id="signup-password" placeholder="Password" required autocomplete="new-password" oninput="checkPasswordStrength(this.value)">
+		
+                <button type="submit">Sign Up</button>
+            </form>
+        </div>
+        <div class="form-container sign-in">
+            <form onsubmit="handleSignIn(event)" action="?" method="POST" >
+                <h1>Admin Sign In</h1>                
+                <input type="email" id="signin-email" placeholder="Email" pattern="^[a-zA-Z0-9._%+-]+@sru\.edu\.in$" title="Please enter a valid college email address" required>
+                <input type="password" id="signin-password" placeholder="Password" required>
+                <div class="g-recaptcha" data-sitekey="6LeUjHAqAAAAAI99mJvXIcGMYnikOyBQ0zmLPoqc"></div>
+                <a href="admin_index.html">Forgot Your Password?</a>
+                <button type="submit">Sign In</button>
+            </form>
+        </div>
+        <div class="toggle-container">
+            <div class="toggle">
+                <div class="toggle-panel toggle-left">
+                    <h1>Welcome Back!</h1>
+                    <p>We're glad to see you again. Please sign in to reconnect with us.</p>
+                    <button class="hidden" id="login">Sign In</button>
+                </div>
+                <div class="toggle-panel toggle-right">
+                    <h1>New To Eventopia?</h1>
+                    <p>We're excited to have you here! Create an account and become part of our community.</p>
+                    <button class="hidden" id="register">Sign Up</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script src="signin.js"></script>
+</body>
+
+</html>

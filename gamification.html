@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gamification - Campus Event Management Portal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            let coinBalance = 0;
+            const coinDisplay = document.getElementById('coin-balance');
+            const eventHistory = [];
+
+            function updateEventHistory() {
+                const eventHistoryList = document.getElementById('event-history');
+                eventHistoryList.innerHTML = '';
+                eventHistory.forEach(event => {
+                    const newEvent = document.createElement('li');
+                    newEvent.className = 'p-2 border-b';
+                    newEvent.textContent = `${event.name} - ${event.date}`;
+                    eventHistoryList.appendChild(newEvent);
+                    const downloadLink = document.createElement('a');
+                    downloadLink.href = event.certificateUrl;
+                    downloadLink.download = event.certificateName;
+                    downloadLink.textContent = 'Download Certificate';
+                    downloadLink.className = 'text-blue-900 underline ml-4';
+
+                    newEvent.appendChild(downloadLink);
+                    eventHistoryList.appendChild(newEvent);
+                });
+            }
+
+            document.getElementById('upload-form').addEventListener('submit', function (e) {
+                e.preventDefault();
+                const eventName = document.getElementById('event-name').value;
+                const eventDate = document.getElementById('event-date').value;
+                const certificate = document.getElementById('certificate').files[0];
+
+                if (eventName && eventDate && certificate) {
+                    coinBalance += 50;
+                    coinDisplay.textContent = coinBalance;
+
+                    eventHistory.push({ name: eventName, date: eventDate });
+                    updateEventHistory();
+
+                    document.getElementById('upload-form').reset();
+                }
+            });
+        });
+    </script>
+</head>
+<body class="bg-gray-100">
+    <header class="bg-blue-900 text-white p-4 flex justify-between items-center">
+        <div class="flex items-center">
+            <img src="https://storage.googleapis.com/a1aa/image/Vdxvw0WgLE5dOxkPW9yIOGCGfaWQMmTH32olCy2fehgzHFjnA.jpg" alt="SRU logo" class="h-10 w-10 mr-2">
+            <span class="text-xl font-bold">EVENTOPIA</span>
+        </div>
+        <div class="relative">
+            <button id="menu-button" class="text-white"><i class="fas fa-bars text-2xl"></i></button>
+            <div id="menu" class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg hidden">
+                <ul class="text-blue-900">
+                    <li class="p-2 hover:bg-blue-100"><a href="dashboard.html">Dashboard</a></li>
+                    <li class="p-2 hover:bg-blue-100"><a href="gamification.html">Gamification</a></li>
+                    <li class="p-2 hover:bg-blue-100"><a href="#">Calendar</a></li>
+                    <li class="p-2 hover:bg-blue-100"><a href="#">Settings</a></li>
+                    <li class="p-2 hover:bg-blue-100"><a href="#">Support / Help</a></li>
+                    <li class="p-2 hover:bg-blue-100"><a href="#">Logout</a></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+    <main id="main-content" class="p-8">
+        <h1 class="text-2xl font-bold mb-4 text-center">Gamification</h1>
+        <div class="mb-4 text-center">
+            <span class="text-xl">Coin Balance: </span>
+            <span id="coin-balance" class="text-xl font-bold">0</span>
+        </div>
+        <form id="upload-form" class="bg-white p-4 rounded-md shadow-md mb-8">
+            <div class="mb-4">
+                <label for="event-name" class="block text-gray-700">Event Name</label>
+                <input type="text" id="event-name" class="w-full p-2 border rounded-md" required>
+            </div>
+            <div class="mb-4">
+                <label for="event-date" class="block text-gray-700">Event Date</label>
+                <input type="date" id="event-date" class="w-full p-2 border rounded-md" required>
+            </div>
+            
+            <div class="mb-4">
+                <label for="certificate" class="block text-gray-700">Certificate Upload (PDF only)</label>
+                <input type="file" id="certificate" class="w-full p-2 border rounded-md" accept="application/pdf" required>
+            </div>
+            <button type="submit" class="bg-blue-900 text-white p-2 rounded-md">Upload</button>
+        </form>
+        <h2 class="text-xl font-bold mb-4 text-center">Event History</h2>
+        <ul id="event-history" class="bg-white p-4 rounded-md shadow-md">
+            <!-- Event history items will be appended here -->
+        </ul>
+    </main>
+</body>
+</html>
